@@ -1,0 +1,7 @@
+#%RAML 1.0 Trait
+usage: Apply this trait to enforce transaction_id identification
+headers:
+  x-transactionid:
+        type: string
+        required: true
+        description: Transaction ID is maintained over an API

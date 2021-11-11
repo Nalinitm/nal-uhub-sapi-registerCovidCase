@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	
+	<flow name="post:\cases:application\json:uhub-sapi-config">
+        <set-variable value="#[attributes.headers.'x-correlationid' default &quot;&quot;]" doc:name="Set Correlationid" doc:id="98a903a4-1103-4600-8798-dfba6468f49d" variableName="correlationid"/>
+		<logger level="INFO" doc:name="Entry Logger" doc:id="b2d11c56-3711-4a65-b9eb-ef2052a2c256" message="transactionID:#[vars.transactionid],correlationID:#[vars.correlationid],message:Stared flow,payload:#[payload],"/>
+		<ee:transform doc:name="Prepare Payload for Covid Case" doc:id="37f8ab34-f89d-4f2e-bc67-2888c3461f59" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+	source:payload.source,
+	caseType:payload.caseType,
+	firstName:payload.firstName,
+	lastName:payload.lastName,
+	phone:payload.phone,
+	email:payload.email,
+	dateofbirth:payload.dateofbirth as String{
+	       format: "yyyy-MM-dd"
+		   },
+    nationalID:payload.nationalID,
+	nationalIDType:payload.nationalIDType,
+	streetAddress:payload.address.streetAddress,
+	city:payload.address.city,
+	state:upper(payload.address.state),
+	postal:payload.address.postal,
+	country:payload.address.country,
+	create_date:now() as String{
+		format:"yyyy-MM-dd"
+	},
+	update_date:now() as String{
+		format:"yyyy-MM-dd"
+	},
+	create_by:"UHIS",
+	update_by:"UHIS"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="insert covid case subflow" doc:id="b3919f00-d36a-4f2b-82a1-8aca1056bae4" name="post-covid-case-subflow"/>
+		<ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:name="Prepare Response">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+ caseID:payload.generatedKeys.GENERATED_KEY
+
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+		<logger level="INFO" doc:name="Exit Logger" doc:id="03e701a1-f3c7-47b1-a831-23836bbb8975" message="#[payload]"/>
+    
+</flow>
+	
+	
+	
+	
+	</mule>

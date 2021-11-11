@@ -1,0 +1,13 @@
+[
+                {
+                  "state":"texas",
+                  "report":{
+                              "total":47472233,
+                              "positive":4376322,
+                               "recovered":2343545,
+                               "death":3545,
+                               "vaccinated":676878
+                            
+                            }
+                }
+              ]

@@ -1,0 +1,45 @@
+[
+                  {
+                    "source":"Hospital1",
+                    "caseId":"4564",
+                    "caseType":"positive",
+                    "firstName":"Jhon",
+                    "lastName":"MC",
+                    "phone":"123456789",
+                    "email":"jhon@gmail.com",
+                    "dateofbirth":"2015-05-23",
+                    "nationalID":"4123-21",
+                    "nationalIDType":"SSN",
+                    "address":{ 
+                                "streetAddress":"1600-23",
+                                "city":"washington",
+                                "state":"DC",
+                                "country":"USA"
+
+                              },
+                    "createDate": "2021-10-23",
+                    "updateDate": "2021-10-23"
+                  },
+                  {
+                      
+                    "source":"Hospital1",
+                    "caseId":"4564",
+                    "caseType":"positive",
+                    "firstName":"Jhon1",
+                    "lastName":"MC",
+                    "phone":"123456789",
+                    "email":"jhon1@gmail.com",
+                    "dateofbirth":"1989-03-29",
+                    "nationalID":"4123-21",
+                    "nationalIDType":"SSN",
+                    "address":{ 
+                                "streetAddress":"1600-23",
+                                "city":"washington",
+                                "state":"DC",
+                                "country":"USA"
+
+                              },
+                    "createDate":"2021-10-23",
+                    "updateDate": "2021-10-23"
+                  } 
+                ]

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	
+	<flow name="get:\cases\(nationalID):uhub-sapi-config">
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core">
+            <ee:variables>
+                <ee:set-variable variableName="nationalID">attributes.uriParams.'nationalID'</ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+[
+  {
+    source: "Hospital1",
+    caseId: "4564",
+    caseType: "positive",
+    firstName: "Jhon",
+    lastName: "MC",
+    phone: "123456789",
+    email: "jhon@gmail.com",
+    dateofbirth: "2015-05-23",
+    nationalID: "4123-21",
+    nationalIDType: "SSN",
+    address: {
+      streetAddress: "1600-23",
+      city: "washington",
+      state: "DC",
+      country: "USA"
+    },
+    createDate: "2021-10-23",
+    updateDate: "2021-10-23"
+  }, 
+  {
+    source: "Hospital1",
+    caseId: "4564",
+    caseType: "positive",
+    firstName: "Jhon1",
+    lastName: "MC",
+    phone: "123456789",
+    email: "jhon1@gmail.com",
+    dateofbirth: "1989-03-29",
+    nationalID: "4123-21",
+    nationalIDType: "SSN",
+    address: {
+      streetAddress: "1600-23",
+      city: "washington",
+      state: "DC",
+      country: "USA"
+    },
+    createDate: "2021-10-23",
+    updateDate: "2021-10-23"
+  }
+]]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+	
+	
+	
+	
+	</mule>

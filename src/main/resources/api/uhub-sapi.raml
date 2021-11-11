@@ -1,0 +1,136 @@
+#%RAML 1.0
+title: uhub-sapi
+version: v1
+baseUri: http://{environment}/covid/{version}
+baseUriParameters:
+  environment:
+    description: DEV,TEST,UAT,PROD
+    enum: ["uho-dev-uhub-sapi.us-e2.cloudhub.io","uho-test-uhub-sapi.us-e2.cloudhub.io","uho-uat-uhub-sapi.us-e2.cloudhub.io","uho-prod-uhub-sapi.us-e2.cloudhub.io"]
+
+traits:
+  client-id-header: !include exchange_modules/50777392-e2db-447b-b2d0-6e143bfa79ca/client-id-required/1.0.0/client-id-required.raml
+  transaction-header: !include exchange_modules/50777392-e2db-447b-b2d0-6e143bfa79ca/transaction-id-header/1.0.0/transaction-id-header.raml
+  correlation-id-header: !include exchange_modules/50777392-e2db-447b-b2d0-6e143bfa79ca/correlation-id-header/1.0.0/correlation-id-header.raml
+  state-query-params: !include uhub-sapi-types/state-query-params.raml
+
+uses:
+  resource-types: exchange_modules/50777392-e2db-447b-b2d0-6e143bfa79ca/resource-types/1.0.0/resource-types.raml
+  common-data-types: exchange_modules/50777392-e2db-447b-b2d0-6e143bfa79ca/common-data-type/1.0.2/common-data-type.raml
+  uhub-sapi-types: uhub-sapi-types/uhub-sapi-types.raml
+  
+
+
+/cases:
+  post:
+    description: register covid case in uhub database
+    is:
+      - client-id-header
+      - correlation-id-header
+      - transaction-header
+    body:
+      application/json:
+        type: uhub-sapi-types.covid-case-request-type
+        example: !include examples/covid-case-request.json
+    responses:
+      201:
+        body:
+          application/json:
+            type: uhub-sapi-types.covid-case-response-type
+            example: !include examples/covid-case-response.json
+      400:
+        body:
+          application/json:
+            type: common-data-types.errorType
+            example: !include examples/400.json
+      500:
+        body:
+          application/json:
+            type: common-data-types.errorType
+            example: !include examples/500.json
+              
+           
+  put:
+    description: update covid case in uhub database
+    is: [client-id-header,transaction-header,correlation-id-header]
+    
+    
+    body:
+      application/json:
+        type: uhub-sapi-types.covid-case-request-type
+        example: !include  examples/covid-case-request.json
+        
+    responses:
+      201:
+        body:
+          application/json:
+            type: uhub-sapi-types.covid-case-response-type
+            example: !include examples/covid-case-response.json
+      400:
+        body:
+          application/json:
+            type: common-data-types.errorType
+            example: !include examples/400.json
+      500:
+        body:
+          application/json:
+            type: common-data-types.errorType
+            example: !include examples/500.json
+
+  /{nationalID}:
+    is: [client-id-header,transaction-header,correlation-id-header]
+    get:
+      description: To get covid case by nationalId
+
+      
+      responses:
+        200:
+          body:
+            application/json:
+              type: uhub-sapi-types.get-covid-cases-by-national-id-response-type
+              example: !include  examples/get-case-by-national-id.json
+                
+        404:
+          body:
+            application/json:
+              type: common-data-types.errorType
+              example: !include examples/404.json
+              
+        503:
+          body:
+            application/json:
+              type: common-data-types.errorType
+              example: !include examples/503.json
+
+/reports:
+  get:
+    description: To get covid reports
+    is:
+      - client-id-header
+      - correlation-id-header
+      - transaction-header
+      - state-query-params
+    
+    responses:
+      200:
+        body:
+          application/json:
+            type: uhub-sapi-types.get-reports-response-type
+            example: !include examples/get-reports-response.json
+              
+      503:
+        body:
+          application/json:
+            type: common-data-types.errorType
+            example: !include examples/503.json
+/health-check:
+  get:
+  type:
+    resource-types.all:
+      getResponseType: string 
+  
+
+    
+
+        
+                
+      

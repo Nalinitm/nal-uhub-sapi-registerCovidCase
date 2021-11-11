@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="post-covid-case-subflow" doc:id="c09bc1ef-8779-48e5-8a92-18b3e117ed7d" >
+		<logger level="INFO" doc:name="Start Logger" doc:id="9690e6d1-d2f0-4171-9e26-cff95783a1f4" message="transactionID:#[vars.transactionid],correlationID:#[vars.correlationid],message:Stared flow,payload:#[payload],"/>
+		<db:insert doc:name="Insert covd_case_master" doc:id="e48f3119-f18c-4c2d-b6b9-54903739cb9f" config-ref="Database_Config" autoGenerateKeys="true">
+			<db:sql ><![CDATA[insert into cvd_case_master4(source,caseType,firstName,lastName,phone,email,dateofbirth,nationalID,nationalIDType,streetAddress,city,state,postal,country,create_date,update_date,create_by,update_by)
+values(:source,:caseType,:firstName,:lastName,:phone,:email,:dateofbirth,:nationalID,:nationalIDType,:streetAddress,:city,:state,:postal,:country,:create_date,:update_date,:create_by,:update_by)]]></db:sql>
+			<db:input-parameters ><![CDATA[#[payload]]]></db:input-parameters>
+			<db:auto-generated-keys-column-names >
+				<db:auto-generated-keys-column-name value="caseID" />
+			</db:auto-generated-keys-column-names>
+		</db:insert>
+		<logger level="INFO" doc:name="Exit Logger" doc:id="92c47326-b526-45c1-bf23-e7aa1fc2e1f7" message="#[payload]"/>
+	</sub-flow>
+</mule>

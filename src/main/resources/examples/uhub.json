@@ -1,0 +1,19 @@
+{
+            "source":"Hospital1",
+            "caseType":"positive",
+            "firstName":"Jhon",
+            "lastName":"MC",
+            "phone":"123456789",
+            "email":"jhon@gmail.com",
+            "dateofbirth":"1989-03-29",
+            "nationalID":"4123-21",
+            "nationalIDType":"SSN",
+            "address":{ 
+                        "streetAddress":"1600-23",
+                        "city":"washington",
+                        "state":"DC",
+                        "country":"USA"
+
+                       }
+
+}

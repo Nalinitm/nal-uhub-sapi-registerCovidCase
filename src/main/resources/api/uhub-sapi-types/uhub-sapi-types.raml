@@ -1,0 +1,242 @@
+#%RAML 1.0 Library
+usage: types for uho sapi only
+types:
+  covid-case-request-type:
+    type: object
+    properties:
+      source:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 60
+        example: "joseph hospital"
+      caseType:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 20
+        example: "5462"
+      firstName:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 20
+        example: "jhon"
+      lastName:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 20
+        example: "Mc"
+      phone:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 12
+        example: "123456789"
+      email:
+        type: string
+        required: false
+        minLength: 1
+        maxLength: 50
+        example: "jhom@gmail.com"
+      dateofbirth:
+        type: date-only
+        required: true
+        example: "1989-03-31"
+      nationalID:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 20
+        example: "210-233"
+      nationalIDType:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 20
+        example: "SSN"
+      address:
+        type: object
+        properties:
+          streetAddress:
+            type: string
+            required: true
+            minLength: 1
+            maxLength: 30
+            example: "12-2,lake view"
+          city:
+            type: string
+            required: true
+            minLength: 1
+            maxLength: 30
+            example: "washignton"
+          state:
+            type: string
+            required: true
+            minLength: 1
+            maxLength: 30
+            example: "Dc"
+          
+          country:
+            type: string
+            required: true
+            minLength: 1
+            maxLength: 30
+            example: "USA"
+  covid-case-response-type:
+    type: object
+    properties:
+      caseID:
+        type: string
+        example: "23214"
+  get-covid-cases-by-national-id-response-type:
+    type: array
+    items:
+      type: object
+      description: contains each case of object
+      properties:
+        source:
+          type: string
+          required: true
+          minLength: 1
+          maxLength: 60
+          example: "joseph hospital"
+        caseId:
+          type: string
+          required: true
+          minLength: 1
+          maxLength: 20
+          example: "4524"
+      
+        caseType:
+          type: string
+          required: true
+          minLength: 1
+          maxLength: 20
+          example: "positive"
+        firstName:
+          type: string
+          required: true
+          minLength: 1
+          maxLength: 20
+          example: "jhon"
+        lastName:
+          type: string
+          required: true
+          minLength: 1
+          maxLength: 20
+          example: "Mc"
+        phone:
+          type: string
+          required: true
+          minLength: 1
+          maxLength: 12
+          example: "123456789"
+        email:
+          type: string
+          required: false
+          minLength: 1
+          maxLength: 50
+          example: "jhom@gmail.com"
+        dateofbirth:
+          type: date-only
+          required: true
+          example: "1987-02-10"
+        nationalID:
+          type: string
+          required: true
+          minLength: 1
+          maxLength: 20
+          example: "210-233"
+        nationalIDType:
+          type: string
+          required: true
+          minLength: 1
+          maxLength: 20
+          example: "SSN"
+        address:
+          type: object
+          properties:
+            streetAddress:
+              type: string
+              required: true
+              minLength: 1
+              maxLength: 30
+              example: "12-2,lake view"
+            city:
+              type: string
+              required: true
+              minLength: 1
+              maxLength: 30
+              example: "washignton"
+            state:
+              type: string
+              required: true
+              minLength: 1
+              maxLength: 30
+              example: "Dc"
+            
+            country:
+              type: string
+              required: true
+              minLength: 1
+              maxLength: 30
+              example: "USA"
+        createDate:
+          type: date-only
+          required: true
+          example: 2021-10-23
+        updateDate:
+          type: date-only
+          required: true
+          example: 2021-10-23
+  get-reports-response-type:
+    type: array
+    items:
+      type: object
+      properties:
+        state: 
+          type: string
+          example: "texas"
+        report:
+          type: object
+          
+          properties:
+            total:
+              type: number
+              example: 43224
+            positive:
+              type: number
+              example: 43224
+            recovered:
+              type: number
+              example: 43224
+            death:
+              type: number
+              example: 43224
+            vaccinated:
+              type: number
+              example: 43224
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+      
+          
+          
+          
+
+
